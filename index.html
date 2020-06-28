@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>prompt demo</title>
+    <script src="popup_prompt.js" defer></script>
+  </head>
+  <body>
+    <h1>Prompt demo</h1>
+    <button id='prompt_button'>Prompt</button>
+    
+  <popup-prompt id='popup_pompt_1' style="visibility: hidden" ></popup-prompt>
+ 
+
+  </body>
+  <script>
+
+
+const gotPromptValue=(e)=>{
+    let value=e.detail.getValue()
+    document.getElementById('popup_pompt_1').style.visibility='hidden'
+    console.log(e.detail)
+    if (value)  e.detail.callBack(value)
+}
+
+const prompt_=(type,callBack)=>{
+  let prompt_el=document.getElementById('popup_pompt_1')
+  prompt_el.changeType(type)
+  prompt_el.setCallBack(callBack)
+  prompt_el.style.visibility='visible'
+  prompt_el.removeEventListener("close",gotPromptValue)
+  prompt_el.addEventListener("close",gotPromptValue)
+}
+
+let types=['date','text','number']
+
+document.getElementById('prompt_button').addEventListener('click',function(){
+  prompt_(
+      types[Math.floor(Math.random() * Math.floor(types.length))],
+      (v)=>alert(v)
+    )
+
+})
+
+
+  </script>
+</html>
+
+
