@@ -8,35 +8,24 @@
   <body>
     <h1>Prompt demo</h1>
     <button id='prompt_button'>Prompt</button>
-    
+
   <popup-prompt id='popup_pompt_1' style="visibility: hidden" ></popup-prompt>
- 
+
 
   </body>
-  <script>
+
+<script defer>
+
+  let types=['date','text','number']
+  let captions=['date','text','number']
+  let values=['1','2','3']
 
 
-const gotPromptValue=(e)=>{
-    let value=e.detail.getValue()
-    document.getElementById('popup_pompt_1').style.visibility='hidden'
-    console.log(e.detail)
-    if (value)  e.detail.callBack(value)
-}
+  document.getElementById('prompt_button').addEventListener('click',function(){
+    let indice=Math.floor(Math.random() * Math.floor(types.length))
+    prompt_(
 
-const prompt_=(type,callBack)=>{
-  let prompt_el=document.getElementById('popup_pompt_1')
-  prompt_el.changeType(type)
-  prompt_el.setCallBack(callBack)
-  prompt_el.style.visibility='visible'
-  prompt_el.removeEventListener("close",gotPromptValue)
-  prompt_el.addEventListener("close",gotPromptValue)
-}
-
-let types=['date','text','number']
-
-document.getElementById('prompt_button').addEventListener('click',function(){
-  prompt_(
-      types[Math.floor(Math.random() * Math.floor(types.length))],
+      types[indice],captions[indice],values[indice],
       (v)=>alert(v)
     )
 
@@ -45,5 +34,3 @@ document.getElementById('prompt_button').addEventListener('click',function(){
 
   </script>
 </html>
-
-
